@@ -27,8 +27,18 @@ class InventoryMapping:
 
     # Req 5.1
     def check_recipe_availability(self, recipe: Recipe) -> bool:
-        pass
+        for ingredient in recipe.keys():
+            if (
+                ingredient not in self.inventory
+                or self.inventory[ingredient] < recipe[ingredient]
+            ):
+                return False
+        return True
 
     # Req 5.2
     def consume_recipe(self, recipe: Recipe) -> None:
-        pass
+        if self.check_recipe_availability(recipe):
+            for ingredient in recipe.keys():
+                self.inventory[ingredient] -= recipe[ingredient]
+        else:
+            raise ValueError
