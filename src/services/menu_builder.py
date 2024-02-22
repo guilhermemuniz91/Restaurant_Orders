@@ -37,6 +37,7 @@ class MenuBuilder:
             dish_dict["restrictions"] = dish.get_restrictions()
 
             if restriction not in dish_dict["restrictions"]:
-                menu_list.append(dish_dict)
+                if self.inventory.check_recipe_availability(dish.recipe):
+                    menu_list.append(dish_dict)
 
         return menu_list
